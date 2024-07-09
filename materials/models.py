@@ -1,3 +1,4 @@
+from config.settings import AUTH_USER_MODEL
 from django.db import models
 
 
@@ -9,6 +10,15 @@ class Course(models.Model):
         blank=True,
         null=True,
         verbose_name="Картинка",
+    )
+
+    owner = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Владелец",
+        help_text="Укажите владельца",
     )
 
     class Meta:
@@ -28,6 +38,15 @@ class Lesson(models.Model):
     url = models.URLField(blank=True, null=True, verbose_name="Ссылка на видео")
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name="Курс")
+
+    owner = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        verbose_name="Владелец",
+        help_text="Укажите владельца",
+    )
 
     class Meta:
         verbose_name = "Урок"

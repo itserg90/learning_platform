@@ -11,6 +11,10 @@ class Command(BaseCommand):
         lesson = Lesson.objects.filter(pk=4).first()
 
         payment = Payment.objects.create(
-            user=user, course=None, lesson=lesson, payment_type="Перевод на счет", payment_amount=500
+            user=user,
+            course=None,
+            lesson=lesson,
+            payment_type="Перевод на счет",
+            payment_amount=500,
         )
         payment.save()
