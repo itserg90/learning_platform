@@ -99,13 +99,11 @@ SIMPLE_JWT = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "learning_platform",
-        "USER": "postgres",
-        # "NAME": os.getenv("NAME"),
-        # "USER": os.getenv("USER"),
-        # "PASSWORD": os.getenv("PASSWORD"),
-        # "HOST": os.getenv("HOST"),
-        # "PORT": os.getenv("PORT"),
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
