@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from materials.models import Subscription
+
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "course",
+    )
+    readonly_fields = ["user", "course"]

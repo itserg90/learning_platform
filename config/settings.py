@@ -92,18 +92,20 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=55),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": "learning_platform",
+        "USER": "postgres",
+        # "NAME": os.getenv("NAME"),
+        # "USER": os.getenv("USER"),
+        # "PASSWORD": os.getenv("PASSWORD"),
+        # "HOST": os.getenv("HOST"),
+        # "PORT": os.getenv("PORT"),
     }
 }
 
