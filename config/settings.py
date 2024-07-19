@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "django_filters",
+    "drf_yasg",
     "users",
     "materials",
 ]
@@ -99,11 +100,13 @@ SIMPLE_JWT = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+        "NAME": "learning_platform",
+        "USER": "postgres",
+        #     "NAME": os.getenv("NAME"),
+        #     "USER": os.getenv("USER"),
+        #     "PASSWORD": os.getenv("PASSWORD"),
+        #     "HOST": os.getenv("HOST"),
+        #     "PORT": os.getenv("PORT"),
     }
 }
 
@@ -150,3 +153,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
+
+STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
