@@ -5,11 +5,7 @@ from materials.models import Subscription, Course, Lesson
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "id",
-        "description",
-    )
+    list_display = ("name", "id", "description", "updated_at")
 
 
 @admin.register(Lesson)
@@ -27,4 +23,4 @@ class SubscriptionAdmin(admin.ModelAdmin):
         "user",
         "course",
     )
-    readonly_fields = ["user", "course"]
+    # readonly_fields = ["user", "course"]

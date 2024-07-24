@@ -42,4 +42,4 @@ class UserSerializer(ModelSerializer):
 class UserRetrieveSerializer(ModelSerializer):
     class Meta:
         model = User
-        fields = ("first_name", "email", "city")
+        fields = ("first_name", "email", "city", "last_login")

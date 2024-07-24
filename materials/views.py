@@ -18,6 +18,8 @@ from materials.serializers import (
     CourseDetailSerializer,
 )
 from materials.permissions import IsModer, IsOwner
+from materials.services import check_course_update_date
+from materials.tasks import send_course_update_info
 
 
 class CourseViewSet(ModelViewSet):
@@ -42,6 +44,24 @@ class CourseViewSet(ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = (IsOwner | ~IsModer,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        course_update_date = self.get_object().updated_at
+        course = serializer.save()
+        print(course_update_date)
+        if check_course_update_date(course_update_date):
+            subs_item = Subscription.objects.filter(course=course)
+            name = course.name
+            for subs in subs_item:
+                email = subs.user.email
+                send_course_update_info.delay(email, name)
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 class LessonListAPIView(ListAPIView):
@@ -81,6 +101,18 @@ class LessonUpdateAPIView(UpdateAPIView):
         IsAuthenticated,
         IsModer | IsOwner,
     )
+
+    def perform_update(self, serializer):
+        course_update_date = self.get_object().course.updated_at
+        lesson = serializer.save()
+        course = lesson.course
+        if check_course_update_date(course_update_date):
+            subs_item = Subscription.objects.filter(course=course)
+            name = course.name
+            email_list = []
+            for subs in subs_item:
+                email_list.append(subs.user.email)
+            send_course_update_info.delay(email_list, name)
 
 
 class LessonDestroyAPIView(DestroyAPIView):

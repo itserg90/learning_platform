@@ -1,6 +1,8 @@
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
 from config import settings
+from datetime import datetime
+from pytz import timezone
 
 import stripe
 
@@ -42,3 +44,12 @@ def create_stripe_session(price):
         mode="payment",
     )
     return session.get("id"), session.get("url")
+
+
+def check_by_last_login_date(date):
+    """Проверяет, что пользователя не было в системе более 30 дней"""
+    current_time = datetime.now(timezone("UTC"))
+    dt = current_time - date
+    if dt.days > 30:
+        return True
+    return False
