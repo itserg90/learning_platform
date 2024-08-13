@@ -48,7 +48,6 @@ class CourseViewSet(ModelViewSet):
     def perform_update(self, serializer):
         course_update_date = self.get_object().updated_at
         course = serializer.save()
-        print(course_update_date)
         if check_course_update_date(course_update_date):
             subs_item = Subscription.objects.filter(course=course)
             name = course.name

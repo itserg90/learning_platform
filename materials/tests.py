@@ -113,6 +113,7 @@ class LessonTestCase(APITestCase):
     def test_lesson_list(self):
         url = reverse("materials:lessons_list")
         response = self.client.get(url)
+        print(self)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.json()["results"]), 1)
         data = response.json()
